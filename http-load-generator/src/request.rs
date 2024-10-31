@@ -240,11 +240,16 @@ impl Requestor {
         experiment: Arc<RwLock<ExperimentDocument>>,
     ) -> (Result<(), ResponseError>, stdDuration) {
         let request = self.prepare_out_of_bounds_request(experiment.clone()).await;
+        println!("Prepared out of bounds request: {:?}", request);
         let start = Instant::now();
-        let response = tokio::spawn(async move { request.send().await })
-            .await
-            .expect("Join should not fail");
+        let response = tokio::spawn(async move { 
+            println!("Sending request...");
+            request.send().await 
+        })
+        .await
+        .expect("Join should not fail");
         let duration = start.elapsed();
+        println!("Request sent. Duration: {:?}", duration);
 
         (
             self.validate_out_of_bounds_response(response, experiment)
