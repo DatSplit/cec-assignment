@@ -39,7 +39,7 @@ impl From<&mut ArgMatches> for ConsumeConfiguration {
         let wait_before_tx = args
             .remove_one::<u8>("consumer-wait-before-send")
             .expect("Required");
-        println!(topic);
+        println!("{}", topic);
 
         ConsumeConfiguration {
             group_id,
