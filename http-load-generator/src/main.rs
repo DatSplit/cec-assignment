@@ -135,7 +135,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let receiver_handle = tokio::spawn(receiver.start());
     println!("Receiver handle spawned.");
     tokio::spawn(async move {
+        println!("Starting consume...");
         consume.start(experiment_tx).await;
+        println!("Consume started.");
     });
     receiver_handle.await.expect("Join should not fail");
     Ok(())
