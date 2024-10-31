@@ -39,6 +39,7 @@ impl From<&mut ArgMatches> for ConsumeConfiguration {
         let wait_before_tx = args
             .remove_one::<u8>("consumer-wait-before-send")
             .expect("Required");
+        println!(topic);
 
         ConsumeConfiguration {
             group_id,
@@ -76,6 +77,7 @@ impl Consume {
         self.consumer
             .subscribe(&[self.config.topic.as_str()])
             .expect("Can't subscribe to specified topics");
+        println!("Successfully subscribed to topic: {}", self.config.topic);
         self.read_loop(tx).await;
     }
 
