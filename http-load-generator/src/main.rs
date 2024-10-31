@@ -120,7 +120,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .get_matches();
 
     let consume_config = ConsumeConfiguration::from(&mut matches);
-    println!("Consume configuration: {:?}", consume_config);
     
     let consume = Consume::new(consume_config);
     println!("Consume instance created.");
@@ -129,7 +128,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Channels created: experiment_tx, experiment_rx");
     
     let receiver_config = ExperimentReceiverConfig::from(&mut matches);
-    println!("Receiver configuration: {:?}", receiver_config);
     
     let receiver = ExperimentReceiver::new(receiver_config, experiment_rx);
     println!("Receiver instance created.");
